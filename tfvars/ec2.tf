@@ -1,16 +1,20 @@
 resource "aws_instance" "terraform" {
-  for_each               = var.instnace
+  for_each               = var.instance
   ami                    = "ami-09c813fb71547fc4f"
   instance_type          = each.value
   vpc_security_group_ids = [aws_security_group.allow_ssh_terraform.id]
-  tags = {
+  tags = merge(
+    var.common_tags,
+    var.tags,
+    {
     Name = each.key
-  }
+    }
+  )  
 }
 
 
 resource "aws_security_group" "allow_ssh_terraform" {
-  name        = "allow_ssh"
+  name        = "allow_ssh_${var.tags.Environment}"
   description = "allow ssh 22 ffrom terraform"
 
   egress {
@@ -29,8 +33,12 @@ resource "aws_security_group" "allow_ssh_terraform" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  tags = {
-    "Name" = "allow_ssh"
-  }
+  tags = merge(
+    var.common_tags,
+    var.tags,
+    {
+    "Name" = "allow_ssh_${var.tags.Environment}"
+    }
+  )
 
 }
