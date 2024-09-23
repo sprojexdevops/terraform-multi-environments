@@ -7,9 +7,9 @@ resource "aws_instance" "terraform" {
     var.common_tags,
     var.tags,
     {
-    Name = each.key
+      Name = each.key
     }
-  )  
+  )
 }
 
 
@@ -37,7 +37,7 @@ resource "aws_security_group" "allow_ssh_terraform" {
     var.common_tags,
     var.tags,
     {
-    "Name" = "allow_ssh_${var.tags.Environment}"
+      "Name" = "allow_ssh_${var.tags.Environment}"
     }
   )
 

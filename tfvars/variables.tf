@@ -18,13 +18,13 @@ variable "domain_name" {
 }
 
 variable "tags" {
-  type = map
+  type = map(any)
 }
 
 variable "common_tags" {
-  type = map
+  type = map(any)
   default = {
-    Project = "Expense"
+    Project   = "Expense"
     Terraform = "true"
   }
 }
