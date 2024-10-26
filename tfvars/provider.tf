@@ -6,6 +6,7 @@ terraform {
     }
   }
 
+  # terraform init -backend-config="path of file"
   backend "s3" {}
 }
 
